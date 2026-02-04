@@ -9771,6 +9771,7 @@ nm_Start(){
 #Include "%A_ScriptDir%\..\lib"
 #Include "nm_OpenMenu.ahk"
 #Include "nm_InventorySearch.ahk"
+#Include "TextSearch.ahk"
 ;interrupts
 nm_MondoInterrupt() => (utc_min := FormatTime(A_NowUTC, "m"), now := nowUnix(),
 	((MondoBuffCheck = 1) && ((utc_min<14 && (now-LastMondoBuff)>960 && MondoAction="Kill")
