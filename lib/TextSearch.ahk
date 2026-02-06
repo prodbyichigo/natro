@@ -96,7 +96,7 @@ HBitmapToRandomAccessStream(hBitmap) {
 CLSIDFromString(IID, &CLSID?) {
 	CLSID := Buffer(16)
 	if res := DllCall("ole32\CLSIDFromString", "WStr", IID, "Ptr", CLSID, "UInt")
-	throw Error("CLSIDFromString failed. Error: " . Format("{:#x}", res))
+	;throw Error("CLSIDFromString failed. Error: " . Format("{:#x}", res))
 	Return CLSID
 }
 
