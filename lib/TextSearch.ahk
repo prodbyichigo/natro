@@ -1,7 +1,8 @@
+ocr_initialised := 0
 InitialiseOCR(){
 	global ocr_enabled := 1
 	global ocr_language := ""
-	global ocr_intialised := 0
+	global ocr_initialised
 
 	for k,v in Map("Windows.Globalization.Language","{9B0252AC-0C27-44F8-B792-9793FB66C63E}", "Windows.Graphics.Imaging.BitmapDecoder","{438CCB26-BCEF-4E95-BAD6-23A822E58D01}", "Windows.Media.Ocr.OcrEngine","{5BFFA85A-3384-3540-9940-699120D428A8}")
 	{
@@ -38,16 +39,15 @@ InitialiseOCR(){
 				;msgbox "No OCR supporting languages are installed on your system! Please follow the Knowledge Base guide to install a supported language as a secondary language on Windows.", "WARNING!!", 0x1030
 	}
 
-	ocr_intialised := 1
+	ocr_initialised := 1
 }
 
 ;expects bitmap with text height between 15-20px
 DetectInventoryText(pBm){
 	global ocr_initialised, ocr_language
 
-    if !ocr_initialised{
+    if !ocr_initialised 
 		InitialiseOCR()
-	}
 
     ;startTime := A_TickCountws.
 
