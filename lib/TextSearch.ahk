@@ -1,7 +1,7 @@
 InitialiseOCR(){
 	global ocr_enabled := 1
 	global ocr_language := ""
-	global ocr_intialised
+	global ocr_intialised := 0
 
 	for k,v in Map("Windows.Globalization.Language","{9B0252AC-0C27-44F8-B792-9793FB66C63E}", "Windows.Graphics.Imaging.BitmapDecoder","{438CCB26-BCEF-4E95-BAD6-23A822E58D01}", "Windows.Media.Ocr.OcrEngine","{5BFFA85A-3384-3540-9940-699120D428A8}")
 	{
@@ -37,6 +37,7 @@ InitialiseOCR(){
 				nm_setStatus("Detected", "No english language for ocr found")
 				;msgbox "No OCR supporting languages are installed on your system! Please follow the Knowledge Base guide to install a supported language as a secondary language on Windows.", "WARNING!!", 0x1030
 	}
+
 	ocr_intialised := 1
 }
 
@@ -222,15 +223,8 @@ CreateClass(str, interface, &Class)
 	DeleteHString(hString)
 }
 
-CreateHString(str, &hString)
-{
-	DllCall("Combase.dll\WindowsCreateString", "wstr", str, "uint", StrLen(str), "ptr*", &hString:=0)
-}
-
-DeleteHString(hString)
-{
-	DllCall("Combase.dll\WindowsDeleteString", "ptr", hString)
-}
+CreateHString(str, &hString) => DllCall("Combase.dll\WindowsCreateString", "wstr", str, "uint", StrLen(str), "ptr*", &hString:=0)
+DeleteHString(hString) => DllCall("Combase.dll\WindowsDeleteString", "ptr", hString)
 
 WaitForAsync(&Object)
 {

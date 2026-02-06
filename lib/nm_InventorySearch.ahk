@@ -1,10 +1,11 @@
 ﻿nm_InventorySearch(item, direction:="down", prescroll:=0, prescrolldir:="", scrolltoend:=1, max:=70){ ;~ item: string of item; direction: down or up; prescroll: number of scrolls before direction switch; prescrolldir: direction to prescroll, set blank for same as direction; scrolltoend: set 0 to omit scrolling to top/bottom after prescrolls; max: number of scrolls in total
 	global bitmaps
 	static hRoblox:=0, l:=0
+	global ocr_intialised
 
 	nm_OpenMenu("itemmenu")
 
-	textSearch := true
+	TextSearch := true
 
 	; detect inventory end for current hwnd
 	if (hwnd := GetRobloxHWND())
@@ -74,7 +75,8 @@
 			}
 		}
 
-		if textSearch{
+		if TextSearch  
+		{
 			count := 0
 			imageHeight := Gdip_GetImageHeight(pBMScreen)
 			lastFirstItem := firstItem
