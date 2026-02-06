@@ -3,9 +3,9 @@
 	static hRoblox:=0, l:=0
 
 	textSearch := true
-	if textSearch{
-		InitialiseOCR()
-	}
+	if !ocr_intialised 
+		initialiseOCR()
+	TextSearch()
 
 	firstItem := ""
 
