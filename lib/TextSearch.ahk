@@ -42,18 +42,16 @@ DetectInventoryText(pBm){
     ;startTime := A_TickCountws.
 
     ; resize to ish 40px for ocr accuracy
-	height := Gdip_GetImageHeight(pBm)
-	width := Gdip_GetImageWidth(pBm)
-	pBm := Gdip_ResizeBitmap(pBm, width * 2, height * 2, 2)
+	Gdip_GetImageDimensions(pBM, &w, &h)
+	pBmResized := Gdip_ResizeBitmap(pBm, w * 2, h * 2, 2)
+	Gdip_DisposeImage(pBm)
 
-    ; convert to grayscale
-    grayScale := Gdip_CreateEffect(6, 0, -100, 0)
-    Gdip_BitmapApplyEffect(pBm, grayScale)
-    Gdip_DisposeEffect(grayScale)
+	pBmReady := Gdip_BitmapConvertGray(pBmResized, 0, -100)
+	Gdip_DisposeImage(pBmResized)
 
     ; no clue what the flip any of this is but it works
-	hBM := Gdip_CreateHBITMAPFromBitmap(pBm)
-	Gdip_DisposeImage(pBm)
+	hBM := Gdip_CreateHBITMAPFromBitmap(pBmReady)
+	Gdip_DisposeImage(pBmReady)
     pIRandomAccessStream := HBitmapToRandomAccessStream(hBM)
     DllCall("DeleteObject", "Ptr", hBM)
     ocrOutput := ocr(pIRandomAccessStream, ocr_language)
