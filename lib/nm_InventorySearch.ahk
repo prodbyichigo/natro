@@ -2,14 +2,9 @@
 	global bitmaps
 	static hRoblox:=0, l:=0
 
-	textSearch := true
-	if !ocr_intialised 
-		initialiseOCR()
-	TextSearch()
-
-	firstItem := ""
-
 	nm_OpenMenu("itemmenu")
+
+	textSearch := true
 
 	; detect inventory end for current hwnd
 	if (hwnd := GetRobloxHWND())
@@ -107,6 +102,8 @@
 				if count = 32{ ; height of item name background
 					textBox := Gdip_CloneBitmapArea(pBMScreen, 96, y + textBoxY, 210, 32)
 					text := DetectInventoryText(textBox)
+
+					MsgBox text
 
 					text := StrReplace(text, "`r", "")
 					text := StrReplace(text, "`n", "")

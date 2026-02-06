@@ -12,6 +12,7 @@ InitialiseOCR(){
 		if (result != 0)
 		{
 			ocr_enabled := 0
+			nm_setStatus("Detected", "OCR Disabled")
 			break
 		}
 	}
@@ -33,7 +34,7 @@ InitialiseOCR(){
 		}
 		if (ocr_language = "")
 			if ((ocr_language := SubStr(list, 1, InStr(list, "`n")-1)) = "")
-				nm_setStatus("Detected", "OCR Disabled")
+				nm_setStatus("Detected", "No english language for ocr found")
 				;msgbox "No OCR supporting languages are installed on your system! Please follow the Knowledge Base guide to install a supported language as a secondary language on Windows.", "WARNING!!", 0x1030
 	}
 	ocr_intialised := 1
@@ -41,7 +42,11 @@ InitialiseOCR(){
 
 ;expects bitmap with text height between 15-20px
 DetectInventoryText(pBm){
-	global ocr_language
+	global ocr_initialised, ocr_language
+
+    if !ocr_initialised{
+		InitialiseOCR()
+	}
 
     ;startTime := A_TickCountws.
 
