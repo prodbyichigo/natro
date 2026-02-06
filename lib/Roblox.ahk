@@ -56,6 +56,7 @@ GetYOffset(hwnd?, &fail?)
 	{
 		try WinActivate "Roblox"
 		GetRobloxClientPos(hwnd)
+		return 22
 		pBMScreen := Gdip_BitmapFromScreen(windowX+windowWidth//2 "|" windowY "|60|100")
 
 		Loop 20 ; for red vignette effect
