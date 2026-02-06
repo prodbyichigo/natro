@@ -153,7 +153,7 @@ ocr(file, lang := "FirstFromAvailableLanguages")
 		if (OcrEngine = 0)
 		{
 			msgbox 'Can not use language "' lang '" for OCR, please install language pack.'
-			ExitApp
+			return
 		}
 		CurrentLanguage := lang
 	}
@@ -166,7 +166,7 @@ ocr(file, lang := "FirstFromAvailableLanguages")
 	if (width > MaxDimension) or (height > MaxDimension)
 	{
 		msgbox 'Image is to big - ' width 'x' height '.`nIt should be maximum - ' MaxDimension ' pixels'
-		ExitApp
+		return
 	}
 	BitmapFrameWithSoftwareBitmap := ComObjQuery(BitmapDecoder, IBitmapFrameWithSoftwareBitmap := "{FE287C9A-420C-4963-87AD-691436E08383}")
 	ComCall(6, BitmapFrameWithSoftwareBitmap, "ptr*", &SoftwareBitmap:=0)   ; GetSoftwareBitmapAsync
@@ -235,7 +235,7 @@ WaitForAsync(&Object)
 			{
 				ComCall(8, AsyncInfo, "uint*", &ErrorCode:=0)   ; IAsyncInfo.ErrorCode
 				msgbox "AsyncInfo status error: " ErrorCode
-				ExitApp
+				return
 			}
 			break
 		}
